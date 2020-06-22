@@ -1,0 +1,15 @@
+{
+  "name": "manzanita-gutenberg",
+  "version": "0.0.1",
+  "description": "Bloques de gutenberg",
+  "main": "index.js",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start"
+  },
+  "author": "Nahuel Clotet",
+  "license": "ISC",
+  "devDependencies": {
+    "@wordpress/scripts": "^11.0.0"
+  }
+}

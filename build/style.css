@@ -1,0 +1,129 @@
+:root {
+    /* Fuentes */
+
+    --fuentePrincipal: 'Dosis', sans-serif;
+    --fuenteSecundaria: 'Amatic SC', cursive;
+    --fuenteTexto: 'Roboto', sans-serif;
+
+    /* Color */
+    --colorPrincipal: firebrick;
+    --colorSecundario: #dc3545;
+    --blanco: #fff;
+    --negro: #000;
+}
+
+.it-content{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.it-content.ti{
+    flex-direction: column-reverse;
+}
+
+.t-content{
+    min-height:200px;
+    padding:6rem 1rem;
+    font-family: var(--fuentePrincipal);
+}
+
+@media (min-width:768px){
+    .t-content{
+        padding:6rem;
+    }
+}
+
+.t-content h1{
+    font-size: 4.8rem;
+    font-weight: bold;
+    line-height: 1;
+    margin:0;
+}
+
+.t-content p{
+    font-size: 1.8rem;
+    line-height: 1.5;
+    margin:1rem 0 0 0;
+}
+
+@media (min-width: 475px){
+    .t-content{
+        min-height:300px;
+    }
+}
+
+.i-content{
+    min-width: 100%;
+}
+
+.i-content img{
+    display: block;
+    min-width:100%;
+    max-height:500px;
+}
+
+
+@media (min-width:850px) {
+   
+    .it-content, .it-content.ti{
+        margin: 0 auto;
+        flex-direction: row;
+        max-width: 1500px;
+    }
+    .textoImagen .it-content{
+        flex-direction: row-reverse;
+    }
+    .t-content,.i-content{
+        flex: 0 0 50%;
+    }
+    .t-content{
+        min-height:200px;
+        padding: 4rem;
+    }
+    .i-content{
+        min-width: auto;
+    }
+}
+
+
+
+/*
+.cajas{
+    display:grid;
+}
+
+.wp-block-column{
+    display:grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+@media (min-width: 768px){
+    .cajas{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .wp-block-column{
+        grid-template-rows: 1fr 1fr;
+        
+    }
+}
+.wp-block-column:not(:first-child){
+    margin:0;
+}
+.wp-block-columns{
+    margin:0;
+}
+.wp-block-column figure.wp-block-image{
+    margin:0;
+   
+}
+.wp-block-column .wp-block-image img{
+     display:block;
+     height:100%;
+}
+
+.wp-block-column .box {
+    padding:4rem;
+}
+*/

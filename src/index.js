@@ -1,0 +1,2 @@
+import './imagentexto'
+import './textoimagen'
