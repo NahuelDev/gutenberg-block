@@ -79,51 +79,24 @@
     }
     .t-content{
         min-height:200px;
-        padding: 4rem;
+        padding: 2rem;
+    }
+    .t-content h1{
+        font-size: 3.2rem;
+    }
+    .t-content p{
+        font-size:1.2rem;
     }
     .i-content{
         min-width: auto;
     }
 }
 
-
-
-/*
-.cajas{
-    display:grid;
-}
-
-.wp-block-column{
-    display:grid;
-    grid-template-rows: 1fr 1fr;
-}
-
-@media (min-width: 768px){
-    .cajas{
-        grid-template-columns: 1fr 1fr;
+@media (min-width:1080px){
+    .t-content h1{
+        font-size: 4rem;
     }
-
-    .wp-block-column{
-        grid-template-rows: 1fr 1fr;
-        
+    .t-content p{
+        font-size:1.6rem;
     }
 }
-.wp-block-column:not(:first-child){
-    margin:0;
-}
-.wp-block-columns{
-    margin:0;
-}
-.wp-block-column figure.wp-block-image{
-    margin:0;
-   
-}
-.wp-block-column .wp-block-image img{
-     display:block;
-     height:100%;
-}
-
-.wp-block-column .box {
-    padding:4rem;
-}
-*/
