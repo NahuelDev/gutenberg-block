@@ -86,186 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./src/imagentexto/index.js":
-/*!**********************************!*\
-  !*** ./src/imagentexto/index.js ***!
-  \**********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
-/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _manzana_svg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../manzana.svg */ "./src/manzana.svg");
-
-var registerBlockType = wp.blocks.registerBlockType;
-var _wp$blockEditor = wp.blockEditor,
-    RichText = _wp$blockEditor.RichText,
-    InspectorControls = _wp$blockEditor.InspectorControls,
-    ColorPalette = _wp$blockEditor.ColorPalette,
-    MediaUpload = _wp$blockEditor.MediaUpload,
-    URLInputButton = _wp$blockEditor.URLInputButton,
-    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
-var _wp$components = wp.components,
-    PanelBody = _wp$components.PanelBody,
-    Button = _wp$components.Button; //Logo para el bloque
-
-
-registerBlockType('manzanita/imagentexto', {
-  title: 'Imagen-Texto',
-  icon: {
-    src: _manzana_svg__WEBPACK_IMPORTED_MODULE_1__["ReactComponent"]
-  },
-  category: 'manzanita-gutenberg',
-  attributes: {
-    imagen: {
-      type: 'string',
-      source: 'attribute',
-      selector: '.i-content img',
-      attribute: 'src'
-    },
-    titulo: {
-      type: 'string',
-      source: 'html',
-      selector: '.t-content h1'
-    },
-    texto: {
-      type: 'string',
-      source: 'html',
-      selector: '.t-content p'
-    },
-    textColor: {
-      type: 'string'
-    },
-    bgColor: {
-      type: 'string'
-    }
-  },
-  edit: function edit(props) {
-    var _props$attributes = props.attributes,
-        imagen = _props$attributes.imagen,
-        titulo = _props$attributes.titulo,
-        texto = _props$attributes.texto,
-        textColor = _props$attributes.textColor,
-        bgColor = _props$attributes.bgColor,
-        setAttributes = props.setAttributes;
-
-    var onSeleccionarImagen = function onSeleccionarImagen(nuevaImagen) {
-      setAttributes({
-        imagen: nuevaImagen.sizes.full.url
-      });
-    };
-
-    var onChangeTitulo = function onChangeTitulo(titulo) {
-      setAttributes({
-        titulo: titulo
-      });
-    };
-
-    var onChangeTexto = function onChangeTexto(texto) {
-      setAttributes({
-        texto: texto
-      });
-    };
-
-    var onBgColor = function onBgColor(bgColor) {
-      setAttributes({
-        bgColor: bgColor
-      });
-    };
-
-    var onTextColor = function onTextColor(textColor) {
-      setAttributes({
-        textColor: textColor
-      });
-    };
-
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
-      title: 'Ajustes de color',
-      initialOpen: true
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "components-base-control"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "components-base-control__field"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
-      className: "components-base-control__label"
-    }, "Color de Fondo")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ColorPalette, {
-      value: bgColor,
-      onChange: onBgColor
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "components-base-control__field"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
-      className: "components-base-control__label"
-    }, "Color del texto")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ColorPalette, {
-      value: textColor,
-      onChange: onTextColor
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "it-content"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "i-content"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: imagen
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
-      onSelect: onSeleccionarImagen,
-      type: "image",
-      render: function render(_ref) {
-        var open = _ref.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
-          className: "manzanita-agregar-imagen",
-          onClick: open,
-          icon: "format-image",
-          showTooltip: "true",
-          label: "Cambiar Imagen"
-        });
-      }
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "t-content",
-      style: {
-        backgroundColor: bgColor,
-        color: textColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agrega el t\xEDtulo",
-      onChange: onChangeTitulo,
-      value: titulo
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agregar texto",
-      onChange: onChangeTexto,
-      value: texto
-    })))));
-  },
-  save: function save(props) {
-    var _props$attributes2 = props.attributes,
-        imagen = _props$attributes2.imagen,
-        titulo = _props$attributes2.titulo,
-        texto = _props$attributes2.texto,
-        textColor = _props$attributes2.textColor,
-        bgColor = _props$attributes2.bgColor;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "it-content",
-      style: {
-        backgroundColor: bgColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "i-content"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: imagen
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "t-content",
-      style: {
-        color: textColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
-      value: titulo
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
-      value: texto
-    })))));
-  }
-});
-
-/***/ }),
-
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -275,9 +95,7 @@ registerBlockType('manzanita/imagentexto', {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _imagentexto__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./imagentexto */ "./src/imagentexto/index.js");
-/* harmony import */ var _textoimagen__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./textoimagen */ "./src/textoimagen/index.js");
-
+/* harmony import */ var _textoimagen__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./textoimagen */ "./src/textoimagen/index.js");
 
 
 /***/ }),
@@ -387,6 +205,10 @@ registerBlockType('manzanita/textoimagen', {
     isRightButton: {
       type: 'boolean',
       default: false
+    },
+    isRightTextBlock: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: function edit(props) {
@@ -401,6 +223,7 @@ registerBlockType('manzanita/textoimagen', {
         buttonText = _props$attributes.buttonText,
         buttonBgColor = _props$attributes.buttonBgColor,
         isRightButton = _props$attributes.isRightButton,
+        isRightTextBlock = _props$attributes.isRightTextBlock,
         setAttributes = props.setAttributes;
 
     var onSeleccionarImagen = function onSeleccionarImagen(nuevaImagen) {
@@ -415,7 +238,7 @@ registerBlockType('manzanita/textoimagen', {
       });
     };
 
-    var onChangeTexto = function onChangeTexto(texto) {
+    var onChangeText = function onChangeText(texto) {
       setAttributes({
         texto: texto
       });
@@ -463,9 +286,82 @@ registerBlockType('manzanita/textoimagen', {
       });
     };
 
+    var onChangeBlock = function onChangeBlock(hasBlockAlign) {
+      setAttributes({
+        isRightTextBlock: !isRightTextBlock
+      });
+    };
+
+    var tContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "t-content",
+      style: {
+        backgroundColor: bgColor,
+        color: textColor
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      placeholder: "Agrega el t\xEDtulo",
+      onChange: onChangeTitulo,
+      value: titulo
+    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      placeholder: "Agregar texto",
+      onChange: onChangeText,
+      value: texto
+    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        textAlign: isRightButton && 'right' || 'left'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        borderColor: textColor
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      className: "btnUrl",
+      href: urlButton,
+      style: {
+        backgroundColor: buttonBgColor,
+        color: textColor
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      placeholder: "Agregar texto",
+      onChange: onChangeButtonText,
+      value: buttonText
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
+      onChange: onChangeURL,
+      url: urlButton
+    })));
+    var iContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "i-content"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
+      src: imagen
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
+      onSelect: onSeleccionarImagen,
+      type: "image",
+      render: function render(_ref) {
+        var open = _ref.open;
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
+          className: "manzanita-agregar-imagen",
+          onClick: open,
+          icon: "format-image",
+          showTooltip: "true",
+          label: "Cambiar Imagen"
+        });
+      }
+    }));
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
-      title: 'Ajustes de color',
+      title: 'Ajustes del bloque',
       initialOpen: true
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control__field"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      className: "components-base-control__label"
+    }, "\xBFTexto a la derecha?")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FormToggle, {
+      onChange: onChangeBlock,
+      checked: isRightTextBlock
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: 'Ajustes de color',
+      initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "components-base-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -510,60 +406,7 @@ registerBlockType('manzanita/textoimagen', {
       checked: isRightButton
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "it-content"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "t-content",
-      style: {
-        backgroundColor: bgColor,
-        color: textColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("h1", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agrega el t\xEDtulo",
-      onChange: onChangeTitulo,
-      value: titulo
-    })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agregar texto",
-      onChange: onChangeTexto,
-      value: texto
-    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      style: {
-        textAlign: isRightButton && 'right' || 'left'
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      style: {
-        borderColor: textColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-      className: "btnUrl",
-      href: urlButton,
-      style: {
-        backgroundColor: buttonBgColor,
-        color: textColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
-      placeholder: "Agregar texto",
-      onChange: onChangeButtonText,
-      value: buttonText
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
-      onChange: onChangeURL,
-      url: urlButton
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "i-content"
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
-      src: imagen
-    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(MediaUpload, {
-      onSelect: onSeleccionarImagen,
-      type: "image",
-      render: function render(_ref) {
-        var open = _ref.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
-          className: "manzanita-agregar-imagen",
-          onClick: open,
-          icon: "format-image",
-          showTooltip: "true",
-          label: "Cambiar Imagen"
-        });
-      }
-    }))));
+    }, isRightTextBlock && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, iContent, tContent) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, tContent, iContent)));
   },
   save: function save(props) {
     var _props$attributes2 = props.attributes,
@@ -576,13 +419,9 @@ registerBlockType('manzanita/textoimagen', {
         urlButton = _props$attributes2.urlButton,
         buttonText = _props$attributes2.buttonText,
         buttonBgColor = _props$attributes2.buttonBgColor,
-        isRightButton = _props$attributes2.isRightButton;
-    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
-      className: "it-content ti",
-      style: {
-        backgroundColor: bgColor
-      }
-    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+        isRightButton = _props$attributes2.isRightButton,
+        isRightTextBlock = _props$attributes2.isRightTextBlock;
+    var tContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "t-content",
       style: {
         color: textColor
@@ -605,11 +444,18 @@ registerBlockType('manzanita/textoimagen', {
       }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
       value: buttonText
-    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    }))));
+    var iContent = Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "i-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       src: imagen
-    }))));
+    }));
+    return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "it-content",
+      style: {
+        backgroundColor: bgColor
+      }
+    }, isRightTextBlock && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, iContent, tContent) || Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, tContent, iContent)));
   }
 });
 

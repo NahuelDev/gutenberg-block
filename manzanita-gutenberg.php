@@ -56,8 +56,7 @@ function manzanita_registrar_bloques(){
 
     //Arreglo de bloques
     $blocks = [
-        'manzanita/textoimagen',
-        'manzanita/imagentexto'
+        'manzanita/textoimagen'
     ];
 
     //Recorrer bloques para agregar scripts y styles

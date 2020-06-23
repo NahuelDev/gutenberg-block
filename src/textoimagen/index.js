@@ -48,13 +48,17 @@ registerBlockType( 'manzanita/textoimagen', {
         isRightButton: {
             type: 'boolean',
             default:false
+        },
+        isRightTextBlock:{
+            type: 'boolean',
+            default: false
         }
 
     },
     edit: (props) => {
 
         const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
-            isRightButton }, setAttributes } = props;
+            isRightButton, isRightTextBlock }, setAttributes } = props;
 
         const onSeleccionarImagen = (nuevaImagen) => {
             setAttributes({imagen: nuevaImagen.sizes.full.url})
@@ -64,7 +68,7 @@ registerBlockType( 'manzanita/textoimagen', {
             setAttributes({titulo})
         }
 
-        const onChangeTexto = (texto) => {
+        const onChangeText = (texto) => {
             setAttributes({texto})
         }
 
@@ -94,12 +98,84 @@ registerBlockType( 'manzanita/textoimagen', {
         const onChangeAlignButton = (hasButtonAlign) => {
             setAttributes({isRightButton: !isRightButton})
         }
+
+        const onChangeBlock = (hasBlockAlign) => {
+            setAttributes({isRightTextBlock: !isRightTextBlock})
+        }
+
+        const tContent = <div className='t-content' style={{backgroundColor:bgColor, 
+                                                            color:textColor}}>
+                            <h1>
+                                <RichText 
+                                placeholder='Agrega el título'
+                                onChange={onChangeTitulo}
+                                value={titulo}
+                                />
+                            </h1>
+                            <p>
+                                <RichText
+                                placeholder='Agregar texto'
+                                onChange={onChangeText}
+                                value={texto}
+                                />
+                            </p>
+
+                            { hasButton &&
+                                <div style={{textAlign: (isRightButton && 'right') || 'left'}}>
+                                    <div style={{borderColor:textColor}}>
+                                        <a className='btnUrl' href={urlButton} style={{backgroundColor:buttonBgColor,color:textColor}}>
+                                            <RichText 
+                                            placeholder='Agregar texto'
+                                            onChange={onChangeButtonText}
+                                            value={buttonText}
+                                            />
+                                        </a>
+                                    </div>
+                                    <URLInputButton
+                                    onChange={onChangeURL}
+                                    url={urlButton}
+                                    />
+                                </div>    
+                                }
+                         </div>;
+
+        const iContent = <div className='i-content'>
+                            <img src={imagen}/>
+                            <MediaUpload
+                            onSelect={onSeleccionarImagen}
+                            type='image'
+                            render={({open}) => (
+                                <Button
+                                    className='manzanita-agregar-imagen'
+                                    onClick={open}
+                                    icon="format-image"
+                                    showTooltip='true'
+                                    label='Cambiar Imagen'
+                                />
+                            )}
+                            />
+                        </div>;
+
         return(
             <>
                 <InspectorControls>
                         <PanelBody
+                        title={'Ajustes del bloque'}
+                        initialOpen={true}
+                        >
+                            <div className="components-base-control">
+                                <div className="components-base-control__field">
+                                    <label className="components-base-control__label">¿Texto a la derecha?</label>
+                                </div>
+                                    <FormToggle
+                                    onChange={onChangeBlock}
+                                    checked={isRightTextBlock}
+                                    />
+                            </div>
+                        </PanelBody>
+                        <PanelBody
                         title={'Ajustes de color'}
-                        initialOpen={true}>
+                        initialOpen={false}>
                             <div className="components-base-control">
                                 <div className="components-base-control__field">
                                     <label className="components-base-control__label">Color de Fondo</label>
@@ -147,88 +223,58 @@ registerBlockType( 'manzanita/textoimagen', {
                         </PanelBody>
                 </InspectorControls>
                 <div className='it-content'>
-                    <div className='t-content' style={{backgroundColor:bgColor, 
-                                                        color:textColor}}>
-                            <h1>
-                                <RichText 
-                                    placeholder='Agrega el título'
-                                    onChange={onChangeTitulo}
-                                    value={titulo}
-                                />
-                            </h1>
-                            <p>
-                                <RichText
-                                    placeholder='Agregar texto'
-                                    onChange={onChangeTexto}
-                                    value={texto}
-                                />
-                            </p>
-
-                            { hasButton &&
-                                <>
-                                <div style={{textAlign: (isRightButton && 'right') || 'left'}}>
-                                    <div style={{borderColor:textColor}}>
-                                        <a className='btnUrl' href={urlButton} style={{backgroundColor:buttonBgColor,color:textColor}}>
-                                            <RichText 
-                                            placeholder='Agregar texto'
-                                            onChange={onChangeButtonText}
-                                            value={buttonText}
-                                            />
-                                        </a>
-                                    </div>
-                                    <URLInputButton
-                                    onChange={onChangeURL}
-                                    url={urlButton}
-                                    />
-                                </div>    
-                                </>
-                            }
-                    </div>
-                    <div className='i-content'>
-                        <img src={imagen}/>
-                    <MediaUpload
-                        onSelect={onSeleccionarImagen}
-                        type='image'
-                        render={({open}) => (
-                            <Button
-                                className='manzanita-agregar-imagen'
-                                onClick={open}
-                                icon="format-image"
-                                showTooltip='true'
-                                label='Cambiar Imagen'
-                            />
-                        )}
-                    />
-                    </div>
+                    {
+                        (isRightTextBlock && <>
+                                                {iContent}
+                                                {tContent}
+                                             </>) 
+                                        || 
+                                        <>
+                                            {tContent}
+                                            {iContent}
+                                        </>
+                    }
                 </div>
             </>
         )
     },
     save: (props) => {
         const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
-            isRightButton }} = props;
+            isRightButton, isRightTextBlock }} = props;
+
+        const tContent =  <div className='t-content' style={{color:textColor}}>
+                                <h1>
+                                    <RichText.Content value={titulo} />
+                                </h1>
+                                <p>
+                                    <RichText.Content value={texto} />
+                                </p>
+                            { hasButton && 
+                            <div style={{borderColor:textColor, textAlign: (isRightButton && 'right') || 'left'}}>
+                                <a className='btnUrl' href={urlButton} style={{color:textColor, backgroundColor:buttonBgColor}}>
+                                    <RichText.Content value={buttonText} />
+                                </a>
+                            </div>
+                            }
+                        </div>;
+        const iContent = <div className='i-content'>
+                            <img src={imagen}/>
+                        </div>;
+
         return(
             <div>
-                <div className='it-content ti' style={{backgroundColor:bgColor}}>
-                    <div className='t-content' style={{color:textColor}}>
-                            <h1>
-                                <RichText.Content value={titulo} />
-                            </h1>
-                            <p>
-                                <RichText.Content value={texto} />
-                            </p>
-                            { hasButton && 
-                            
-                                <div style={{borderColor:textColor, textAlign: (isRightButton && 'right') || 'left'}}>
-                                    <a className='btnUrl' href={urlButton} style={{color:textColor, backgroundColor:buttonBgColor}}>
-                                        <RichText.Content value={buttonText} />
-                                    </a>
-                                </div>
-                            }
-                    </div>
-                    <div className='i-content'>
-                        <img src={imagen}/>
-                    </div>
+                <div className='it-content' style={{backgroundColor:bgColor}}>
+                   {
+                        (isRightTextBlock && <>
+                                                {iContent}
+                                                {tContent}
+                                             </>) 
+                                        || 
+                                        <>
+                                            {tContent}
+                                            {iContent}
+                                        </>
+                    }
                 </div>
             </div>
         )

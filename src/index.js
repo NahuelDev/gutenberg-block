@@ -1,2 +1,1 @@
-import './imagentexto'
 import './textoimagen'
