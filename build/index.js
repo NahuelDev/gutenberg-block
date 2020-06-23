@@ -109,7 +109,7 @@ var _wp$blockEditor = wp.blockEditor,
     AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
-    IconButton = _wp$components.IconButton; //Logo para el bloque
+    Button = _wp$components.Button; //Logo para el bloque
 
 
 registerBlockType('manzanita/imagentexto', {
@@ -211,7 +211,7 @@ registerBlockType('manzanita/imagentexto', {
       type: "image",
       render: function render(_ref) {
         var open = _ref.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(IconButton, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
           className: "manzanita-agregar-imagen",
           onClick: open,
           icon: "format-image",
@@ -339,7 +339,8 @@ var _wp$blockEditor = wp.blockEditor,
     AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
-    IconButton = _wp$components.IconButton; //Logo para el bloque
+    Button = _wp$components.Button,
+    FormToggle = _wp$components.FormToggle; //Logo para el bloque
 
 
 registerBlockType('manzanita/textoimagen', {
@@ -370,6 +371,16 @@ registerBlockType('manzanita/textoimagen', {
     },
     bgColor: {
       type: 'string'
+    },
+    hasButton: {
+      type: 'boolean',
+      default: true
+    },
+    urlButton: {
+      type: 'string'
+    },
+    buttonText: {
+      type: 'string'
     }
   },
   edit: function edit(props) {
@@ -379,6 +390,9 @@ registerBlockType('manzanita/textoimagen', {
         texto = _props$attributes.texto,
         textColor = _props$attributes.textColor,
         bgColor = _props$attributes.bgColor,
+        hasButton = _props$attributes.hasButton,
+        urlButton = _props$attributes.urlButton,
+        buttonText = _props$attributes.buttonText,
         setAttributes = props.setAttributes;
 
     var onSeleccionarImagen = function onSeleccionarImagen(nuevaImagen) {
@@ -411,6 +425,24 @@ registerBlockType('manzanita/textoimagen', {
       });
     };
 
+    var onChangeButton = function onChangeButton(hasButtonValue) {
+      setAttributes({
+        hasButton: !hasButton
+      });
+    };
+
+    var onChangeButtonText = function onChangeButtonText(buttonText) {
+      setAttributes({
+        buttonText: buttonText
+      });
+    };
+
+    var onChangeURL = function onChangeURL(urlButton) {
+      setAttributes({
+        urlButton: urlButton
+      });
+    };
+
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(InspectorControls, null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
       title: 'Ajustes de color',
       initialOpen: true
@@ -430,6 +462,17 @@ registerBlockType('manzanita/textoimagen', {
     }, "Color del texto")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ColorPalette, {
       value: textColor,
       onChange: onTextColor
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
+      title: "Ajustes del bot\xF3n"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control__field"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      className: "components-base-control__label"
+    }, "\xBFAgregar bot\xF3n debajo del texto?")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FormToggle, {
+      onChange: onChangeButton,
+      checked: hasButton
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "it-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -446,6 +489,15 @@ registerBlockType('manzanita/textoimagen', {
       placeholder: "Agregar texto",
       onChange: onChangeTexto,
       value: texto
+    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      href: urlButton
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
+      placeholder: "Agregar texto",
+      onChange: onChangeButtonText,
+      value: buttonText
+    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
+      onChange: onChangeURL,
+      url: urlButton
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "i-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
@@ -455,7 +507,7 @@ registerBlockType('manzanita/textoimagen', {
       type: "image",
       render: function render(_ref) {
         var open = _ref.open;
-        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(IconButton, {
+        return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(Button, {
           className: "manzanita-agregar-imagen",
           onClick: open,
           icon: "format-image",

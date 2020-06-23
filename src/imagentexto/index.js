@@ -1,7 +1,7 @@
 const { registerBlockType } = wp.blocks;
 const { RichText, InspectorControls, ColorPalette, MediaUpload, URLInputButton,
 AlignmentToolbar } = wp.blockEditor;
-const { PanelBody, IconButton } = wp.components;
+const { PanelBody, Button } = wp.components;
 
 //Logo para el bloque
 import { ReactComponent as Logo } from '../manzana.svg';
@@ -89,7 +89,7 @@ registerBlockType( 'manzanita/imagentexto', {
                         onSelect={onSeleccionarImagen}
                         type='image'
                         render={({open}) => (
-                            <IconButton
+                            <Button
                                 className='manzanita-agregar-imagen'
                                 onClick={open}
                                 icon="format-image"

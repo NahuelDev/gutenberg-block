@@ -1,7 +1,7 @@
 const { registerBlockType } = wp.blocks;
 const { RichText, InspectorControls, ColorPalette, MediaUpload, URLInputButton,
 AlignmentToolbar } = wp.blockEditor;
-const { PanelBody, IconButton } = wp.components;
+const { PanelBody, Button, FormToggle } = wp.components;
 
 //Logo para el bloque
 import { ReactComponent as Logo } from '../manzana.svg';
@@ -32,12 +32,22 @@ registerBlockType( 'manzanita/textoimagen', {
         },
         bgColor: {
             type:'string'
+        },
+        hasButton:{
+            type: 'boolean',
+            default: true
+        },
+        urlButton:{
+            type:'string'
+        },
+        buttonText:{
+            type:'string'
         }
 
     },
     edit: (props) => {
 
-        const {attributes: { imagen, titulo, texto, textColor, bgColor }, setAttributes } = props;
+        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText }, setAttributes } = props;
 
         const onSeleccionarImagen = (nuevaImagen) => {
             setAttributes({imagen: nuevaImagen.sizes.full.url})
@@ -58,6 +68,19 @@ registerBlockType( 'manzanita/textoimagen', {
         const onTextColor = (textColor) => {
             setAttributes({textColor})
         }
+
+        const onChangeButton = (hasButtonValue) => {
+            setAttributes({ hasButton : !hasButton})
+        }
+
+        const onChangeButtonText = (buttonText) => {
+            setAttributes({buttonText})
+        }
+        const onChangeURL = (urlButton) => {
+            setAttributes({urlButton})
+        }
+        
+        
         return(
             <>
                 <InspectorControls>
@@ -77,7 +100,20 @@ registerBlockType( 'manzanita/textoimagen', {
                                 </div>
                                 <ColorPalette
                                     value = { textColor }
-                                    onChange = {onTextColor}
+                                    onChange = { onTextColor }
+                                />
+                            </div>
+                        </PanelBody>
+                        <PanelBody
+                        title='Ajustes del botón'
+                        >
+                            <div className="components-base-control">
+                                <div className="components-base-control__field">
+                                    <label className="components-base-control__label">¿Agregar botón debajo del texto?</label>
+                                </div>
+                                <FormToggle
+                                onChange={onChangeButton}
+                                checked={hasButton}
                                 />
                             </div>
                         </PanelBody>
@@ -99,6 +135,24 @@ registerBlockType( 'manzanita/textoimagen', {
                                     value={texto}
                                 />
                             </p>
+
+                            { hasButton && 
+                            <>
+                                <div>
+                                    <a href={urlButton}>
+                                        <RichText 
+                                        placeholder='Agregar texto'
+                                        onChange={onChangeButtonText}
+                                        value={buttonText}
+                                        />
+                                    </a>
+                                </div>
+                                <URLInputButton
+                                onChange={onChangeURL}
+                                url={urlButton}
+                                />
+                            </>
+                            }
                     </div>
                     <div className='i-content'>
                         <img src={imagen}/>
@@ -106,7 +160,7 @@ registerBlockType( 'manzanita/textoimagen', {
                         onSelect={onSeleccionarImagen}
                         type='image'
                         render={({open}) => (
-                            <IconButton
+                            <Button
                                 className='manzanita-agregar-imagen'
                                 onClick={open}
                                 icon="format-image"
