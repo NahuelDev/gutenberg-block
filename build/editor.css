@@ -3,3 +3,17 @@ div.wp-block {
     width:100%
 }
 
+
+.btnUrl{
+    padding:.5rem 1.5rem;
+    text-align:center;
+    border: 2px solid;
+    border-radius: 6px;
+}
+
+.t-content>div>div{
+    display:inline-flex;
+}
+a{
+    text-decoration: none;
+}

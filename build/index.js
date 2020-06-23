@@ -335,8 +335,7 @@ var _wp$blockEditor = wp.blockEditor,
     InspectorControls = _wp$blockEditor.InspectorControls,
     ColorPalette = _wp$blockEditor.ColorPalette,
     MediaUpload = _wp$blockEditor.MediaUpload,
-    URLInputButton = _wp$blockEditor.URLInputButton,
-    AlignmentToolbar = _wp$blockEditor.AlignmentToolbar;
+    URLInputButton = _wp$blockEditor.URLInputButton;
 var _wp$components = wp.components,
     PanelBody = _wp$components.PanelBody,
     Button = _wp$components.Button,
@@ -372,6 +371,9 @@ registerBlockType('manzanita/textoimagen', {
     bgColor: {
       type: 'string'
     },
+    buttonBgColor: {
+      type: 'string'
+    },
     hasButton: {
       type: 'boolean',
       default: true
@@ -381,6 +383,10 @@ registerBlockType('manzanita/textoimagen', {
     },
     buttonText: {
       type: 'string'
+    },
+    isRightButton: {
+      type: 'boolean',
+      default: false
     }
   },
   edit: function edit(props) {
@@ -393,6 +399,8 @@ registerBlockType('manzanita/textoimagen', {
         hasButton = _props$attributes.hasButton,
         urlButton = _props$attributes.urlButton,
         buttonText = _props$attributes.buttonText,
+        buttonBgColor = _props$attributes.buttonBgColor,
+        isRightButton = _props$attributes.isRightButton,
         setAttributes = props.setAttributes;
 
     var onSeleccionarImagen = function onSeleccionarImagen(nuevaImagen) {
@@ -431,6 +439,12 @@ registerBlockType('manzanita/textoimagen', {
       });
     };
 
+    var onChangeButtonBgColor = function onChangeButtonBgColor(buttonBgColor) {
+      setAttributes({
+        buttonBgColor: buttonBgColor
+      });
+    };
+
     var onChangeButtonText = function onChangeButtonText(buttonText) {
       setAttributes({
         buttonText: buttonText
@@ -440,6 +454,12 @@ registerBlockType('manzanita/textoimagen', {
     var onChangeURL = function onChangeURL(urlButton) {
       setAttributes({
         urlButton: urlButton
+      });
+    };
+
+    var onChangeAlignButton = function onChangeAlignButton(hasButtonAlign) {
+      setAttributes({
+        isRightButton: !isRightButton
       });
     };
 
@@ -463,16 +483,31 @@ registerBlockType('manzanita/textoimagen', {
       value: textColor,
       onChange: onTextColor
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(PanelBody, {
-      title: "Ajustes del bot\xF3n"
+      title: "Ajustes del bot\xF3n",
+      initialOpen: false
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "components-base-control"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "components-base-control__field"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
       className: "components-base-control__label"
+    }, "Color del fondo del bot\xF3n")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(ColorPalette, {
+      value: buttonBgColor,
+      onChange: onChangeButtonBgColor
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control__field"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      className: "components-base-control__label"
     }, "\xBFAgregar bot\xF3n debajo del texto?")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FormToggle, {
       onChange: onChangeButton,
       checked: hasButton
+    }), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      className: "components-base-control__field"
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("label", {
+      className: "components-base-control__label"
+    }, "\xBFBot\xF3n a la derecha?")), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(FormToggle, {
+      onChange: onChangeAlignButton,
+      checked: isRightButton
     })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "it-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
@@ -489,8 +524,21 @@ registerBlockType('manzanita/textoimagen', {
       placeholder: "Agregar texto",
       onChange: onChangeTexto,
       value: texto
-    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
-      href: urlButton
+    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        textAlign: isRightButton && 'right' || 'left'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        borderColor: textColor
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      className: "btnUrl",
+      href: urlButton,
+      style: {
+        backgroundColor: buttonBgColor,
+        color: textColor
+      }
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText, {
       placeholder: "Agregar texto",
       onChange: onChangeButtonText,
@@ -498,7 +546,7 @@ registerBlockType('manzanita/textoimagen', {
     }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(URLInputButton, {
       onChange: onChangeURL,
       url: urlButton
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "i-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       src: imagen
@@ -523,7 +571,12 @@ registerBlockType('manzanita/textoimagen', {
         titulo = _props$attributes2.titulo,
         texto = _props$attributes2.texto,
         textColor = _props$attributes2.textColor,
-        bgColor = _props$attributes2.bgColor;
+        bgColor = _props$attributes2.bgColor,
+        hasButton = _props$attributes2.hasButton,
+        urlButton = _props$attributes2.urlButton,
+        buttonText = _props$attributes2.buttonText,
+        buttonBgColor = _props$attributes2.buttonBgColor,
+        isRightButton = _props$attributes2.isRightButton;
     return Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "it-content ti",
       style: {
@@ -538,7 +591,21 @@ registerBlockType('manzanita/textoimagen', {
       value: titulo
     })), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("p", null, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
       value: texto
-    }))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+    })), hasButton && Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
+      style: {
+        borderColor: textColor,
+        textAlign: isRightButton && 'right' || 'left'
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("a", {
+      className: "btnUrl",
+      href: urlButton,
+      style: {
+        color: textColor,
+        backgroundColor: buttonBgColor
+      }
+    }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])(RichText.Content, {
+      value: buttonText
+    })))), Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("div", {
       className: "i-content"
     }, Object(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__["createElement"])("img", {
       src: imagen

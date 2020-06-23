@@ -7,7 +7,7 @@
 
     /* Color */
     --colorPrincipal: firebrick;
-    --colorSecundario: #dc3545;
+    --colorSecundario: #DC2128;
     --blanco: #fff;
     --negro: #000;
 }
@@ -41,10 +41,14 @@
     margin:0;
 }
 
-.t-content p{
+.t-content p, .t-content>div>a{
     font-size: 1.8rem;
     line-height: 1.5;
     margin:1rem 0 0 0;
+}
+
+.t-content>div>a:hover {
+    background-color: var(--colorPrincipal);
 }
 
 @media (min-width: 475px){
@@ -84,7 +88,7 @@
     .t-content h1{
         font-size: 3.2rem;
     }
-    .t-content p{
+    .t-content p, .t-content>div>a{
         font-size:1.2rem;
     }
     .i-content{
@@ -96,7 +100,17 @@
     .t-content h1{
         font-size: 4rem;
     }
-    .t-content p{
+    .t-content p, .t-content>div>a{
         font-size:1.6rem;
     }
+}
+
+.t-content>div{
+    margin: 2rem 3rem 0 0;
+}
+
+.btnUrl{
+    padding:1rem 3rem;
+    border: 2px solid;
+    border-radius: 6px;
 }

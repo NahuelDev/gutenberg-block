@@ -1,6 +1,5 @@
 const { registerBlockType } = wp.blocks;
-const { RichText, InspectorControls, ColorPalette, MediaUpload, URLInputButton,
-AlignmentToolbar } = wp.blockEditor;
+const { RichText, InspectorControls, ColorPalette, MediaUpload, URLInputButton } = wp.blockEditor;
 const { PanelBody, Button, FormToggle } = wp.components;
 
 //Logo para el bloque
@@ -33,6 +32,9 @@ registerBlockType( 'manzanita/textoimagen', {
         bgColor: {
             type:'string'
         },
+        buttonBgColor :{
+            type:'string'
+        },
         hasButton:{
             type: 'boolean',
             default: true
@@ -42,12 +44,17 @@ registerBlockType( 'manzanita/textoimagen', {
         },
         buttonText:{
             type:'string'
+        },
+        isRightButton: {
+            type: 'boolean',
+            default:false
         }
 
     },
     edit: (props) => {
 
-        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText }, setAttributes } = props;
+        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
+            isRightButton }, setAttributes } = props;
 
         const onSeleccionarImagen = (nuevaImagen) => {
             setAttributes({imagen: nuevaImagen.sizes.full.url})
@@ -73,14 +80,20 @@ registerBlockType( 'manzanita/textoimagen', {
             setAttributes({ hasButton : !hasButton})
         }
 
+        const onChangeButtonBgColor = (buttonBgColor) => {
+            setAttributes({buttonBgColor});
+        }
+        
         const onChangeButtonText = (buttonText) => {
             setAttributes({buttonText})
         }
         const onChangeURL = (urlButton) => {
             setAttributes({urlButton})
         }
-        
-        
+
+        const onChangeAlignButton = (hasButtonAlign) => {
+            setAttributes({isRightButton: !isRightButton})
+        }
         return(
             <>
                 <InspectorControls>
@@ -106,14 +119,29 @@ registerBlockType( 'manzanita/textoimagen', {
                         </PanelBody>
                         <PanelBody
                         title='Ajustes del botón'
+                        initialOpen={false}
                         >
                             <div className="components-base-control">
+                                <div className="components-base-control__field">
+                                    <label className="components-base-control__label">Color del fondo del botón</label>
+                                </div>
+                                <ColorPalette
+                                    value = { buttonBgColor }
+                                    onChange = { onChangeButtonBgColor }
+                                />
                                 <div className="components-base-control__field">
                                     <label className="components-base-control__label">¿Agregar botón debajo del texto?</label>
                                 </div>
                                 <FormToggle
                                 onChange={onChangeButton}
                                 checked={hasButton}
+                                />
+                                <div className="components-base-control__field">
+                                    <label className="components-base-control__label">¿Botón a la derecha?</label>
+                                </div>
+                                <FormToggle
+                                onChange={onChangeAlignButton}
+                                checked={isRightButton}
                                 />
                             </div>
                         </PanelBody>
@@ -136,22 +164,24 @@ registerBlockType( 'manzanita/textoimagen', {
                                 />
                             </p>
 
-                            { hasButton && 
-                            <>
-                                <div>
-                                    <a href={urlButton}>
-                                        <RichText 
-                                        placeholder='Agregar texto'
-                                        onChange={onChangeButtonText}
-                                        value={buttonText}
-                                        />
-                                    </a>
-                                </div>
-                                <URLInputButton
-                                onChange={onChangeURL}
-                                url={urlButton}
-                                />
-                            </>
+                            { hasButton &&
+                                <>
+                                <div style={{textAlign: (isRightButton && 'right') || 'left'}}>
+                                    <div style={{borderColor:textColor}}>
+                                        <a className='btnUrl' href={urlButton} style={{backgroundColor:buttonBgColor,color:textColor}}>
+                                            <RichText 
+                                            placeholder='Agregar texto'
+                                            onChange={onChangeButtonText}
+                                            value={buttonText}
+                                            />
+                                        </a>
+                                    </div>
+                                    <URLInputButton
+                                    onChange={onChangeURL}
+                                    url={urlButton}
+                                    />
+                                </div>    
+                                </>
                             }
                     </div>
                     <div className='i-content'>
@@ -175,7 +205,8 @@ registerBlockType( 'manzanita/textoimagen', {
         )
     },
     save: (props) => {
-        const {attributes: { imagen, titulo, texto, textColor, bgColor } } = props;
+        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
+            isRightButton }} = props;
         return(
             <div>
                 <div className='it-content ti' style={{backgroundColor:bgColor}}>
@@ -186,6 +217,14 @@ registerBlockType( 'manzanita/textoimagen', {
                             <p>
                                 <RichText.Content value={texto} />
                             </p>
+                            { hasButton && 
+                            
+                                <div style={{borderColor:textColor, textAlign: (isRightButton && 'right') || 'left'}}>
+                                    <a className='btnUrl' href={urlButton} style={{color:textColor, backgroundColor:buttonBgColor}}>
+                                        <RichText.Content value={buttonText} />
+                                    </a>
+                                </div>
+                            }
                     </div>
                     <div className='i-content'>
                         <img src={imagen}/>
