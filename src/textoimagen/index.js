@@ -10,18 +10,18 @@ registerBlockType( 'manzanita/textoimagen', {
     icon: {src: Logo},
     category: 'manzanita-gutenberg',
     attributes: {
-        imagen: {
+        image: {
             type: 'string',
             source:'attribute',
             selector: '.i-content img',
             attribute: 'src'
         },
-        titulo:{
+        title:{
             type: 'string',
             source: 'html',
             selector: '.t-content h1'
         },
-        texto:{
+        text:{
             type: 'string',
             source: 'html',
             selector: '.t-content p'
@@ -57,19 +57,19 @@ registerBlockType( 'manzanita/textoimagen', {
     },
     edit: (props) => {
 
-        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
+        const {attributes: { image, title, text, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
             isRightButton, isRightTextBlock }, setAttributes } = props;
 
-        const onSeleccionarImagen = (nuevaImagen) => {
-            setAttributes({imagen: nuevaImagen.sizes.full.url})
+        const onSeleccionarImage = (newImage) => {
+            setAttributes({image: newImage.sizes.full.url})
         }
         
-        const onChangeTitulo = (titulo) => {
-            setAttributes({titulo})
+        const onChangeTitle = (title) => {
+            setAttributes({title})
         }
 
-        const onChangeText = (texto) => {
-            setAttributes({texto})
+        const onChangeText = (text) => {
+            setAttributes({text})
         }
 
         const onBgColor = (bgColor) => {
@@ -108,15 +108,15 @@ registerBlockType( 'manzanita/textoimagen', {
                             <h1>
                                 <RichText 
                                 placeholder='Agrega el título'
-                                onChange={onChangeTitulo}
-                                value={titulo}
+                                onChange={onChangeTitle}
+                                value={title}
                                 />
                             </h1>
                             <p>
                                 <RichText
                                 placeholder='Agregar texto'
                                 onChange={onChangeText}
-                                value={texto}
+                                value={text}
                                 />
                             </p>
 
@@ -140,13 +140,12 @@ registerBlockType( 'manzanita/textoimagen', {
                          </div>;
 
         const iContent = <div className='i-content'>
-                            <img src={imagen}/>
+                            <img src={image}/>
                             <MediaUpload
-                            onSelect={onSeleccionarImagen}
+                            onSelect={onSeleccionarImage}
                             type='image'
                             render={({open}) => (
                                 <Button
-                                    className='manzanita-agregar-imagen'
                                     onClick={open}
                                     icon="format-image"
                                     showTooltip='true'
@@ -239,15 +238,15 @@ registerBlockType( 'manzanita/textoimagen', {
         )
     },
     save: (props) => {
-        const {attributes: { imagen, titulo, texto, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
+        const {attributes: { image, title, text, textColor, bgColor, hasButton, urlButton, buttonText, buttonBgColor,
             isRightButton, isRightTextBlock }} = props;
 
         const tContent =  <div className='t-content' style={{color:textColor}}>
                                 <h1>
-                                    <RichText.Content value={titulo} />
+                                    <RichText.Content value={title} />
                                 </h1>
                                 <p>
-                                    <RichText.Content value={texto} />
+                                    <RichText.Content value={text} />
                                 </p>
                             { hasButton && 
                             <div style={{borderColor:textColor, textAlign: (isRightButton && 'right') || 'left'}}>
@@ -258,12 +257,11 @@ registerBlockType( 'manzanita/textoimagen', {
                             }
                         </div>;
         const iContent = <div className='i-content'>
-                            <img src={imagen}/>
+                            <img src={image}/>
                         </div>;
-
         return(
             <div>
-                <div className='it-content' style={{backgroundColor:bgColor}}>
+                <div className={'it-content' + (!isRightTextBlock ? ' ti' : ' ')} style={{backgroundColor:bgColor}}>
                    {
                         (isRightTextBlock && <>
                                                 {iContent}

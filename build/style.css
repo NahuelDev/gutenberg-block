@@ -47,8 +47,9 @@
     margin:1rem 0 0 0;
 }
 
-.t-content>div>a:hover {
+.t-content div>a:hover {
     background-color: var(--colorPrincipal);
+    color:#000;
 }
 
 @media (min-width: 475px){

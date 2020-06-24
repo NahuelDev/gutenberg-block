@@ -1,1 +1,2 @@
 import './textoimagen'
+import './hero'
