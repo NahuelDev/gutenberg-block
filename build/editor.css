@@ -5,9 +5,9 @@ div.wp-block {
 
 
 .btnUrl{
+    display:inline-block;
     padding:.5rem 1.5rem;
     text-align:center;
-    border: 2px solid;
     border-radius: 6px;
 }
 
@@ -16,4 +16,28 @@ div.wp-block {
 }
 a{
     text-decoration: none;
+}
+
+.hero-content{
+    height:500px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position:relative;
+}
+
+.hero-inside{
+  position: absolute;
+  text-align:center;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+.hero-content .hero-inside{
+    text-shadow: none;
+}
+
+.hero-content a{
+    font-size:1.2rem;    
 }
